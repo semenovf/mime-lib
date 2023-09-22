@@ -37,10 +37,19 @@ namespace mime {
 MIME__EXPORT
 mime_enum read_mime (pfs::filesystem::path const & path, pfs::error * perr = nullptr);
 
+MIME__EXPORT
+mime_enum read_mime_fallback (pfs::filesystem::path const & path
+    , mime_enum fallback = mime_enum::fallback
+    , pfs::error * perr = nullptr);
+
 /**
  * Determines MIME type of file @a path by it's extension.
  */
 MIME__EXPORT
 mime_enum mime_by_extension (pfs::filesystem::path const & path);
+
+MIME__EXPORT
+mime_enum mime_by_extension_fallback (pfs::filesystem::path const & path
+    , mime_enum fallback = mime_enum::fallback);
 
 } // namespace pfs

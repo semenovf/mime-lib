@@ -53,4 +53,10 @@ mime_enum mime_by_extension (pfs::filesystem::path const & path)
     return mime_enum::unknown;
 }
 
+mime_enum mime_by_extension_fallback (pfs::filesystem::path const & path, mime_enum fallback)
+{
+    auto m = mime_by_extension(path);
+    return m == mime_enum::unknown ? fallback : m;
+}
+
 } // namespace mime

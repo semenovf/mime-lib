@@ -135,4 +135,11 @@ mime_enum read_mime (pfs::filesystem::path const & path, pfs::error * perr)
     return mime_enum::unknown;
 }
 
+mime_enum read_mime_fallback (pfs::filesystem::path const & path
+    , mime_enum fallback, pfs::error * perr)
+{
+    auto m = read_mime(path, perr);
+    return m == mime_enum::unknown ? fallback : m;
+}
+
 } // namespace mime

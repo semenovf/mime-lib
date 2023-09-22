@@ -2079,7 +2079,7 @@ enum class mime_enum: std::int32_t
     , audio__wav = 20157
 
     // Default MIME used as a fallback value
-    , fallback_mime = application__octet_stream
+    , fallback = application__octet_stream
 }; // mime_enum
 
 /**
@@ -2088,10 +2088,16 @@ enum class mime_enum: std::int32_t
 std::string const & to_string (mime_enum m);
 
 
-inline bool is_model (mime_enum m) noexcept
+inline bool is_audio (mime_enum m) noexcept
 {
-    return static_cast<int>(m) >= 60000
-        && static_cast<int>(m) < 60041;
+    return static_cast<int>(m) >= 20000
+        && static_cast<int>(m) < 20158;
+}
+
+inline bool is_multipart (mime_enum m) noexcept
+{
+    return static_cast<int>(m) >= 70000
+        && static_cast<int>(m) < 70017;
 }
 
 inline bool is_image (mime_enum m) noexcept
@@ -2106,28 +2112,10 @@ inline bool is_message (mime_enum m) noexcept
         && static_cast<int>(m) < 50022;
 }
 
-inline bool is_font (mime_enum m) noexcept
-{
-    return static_cast<int>(m) >= 30000
-        && static_cast<int>(m) < 30006;
-}
-
 inline bool is_application (mime_enum m) noexcept
 {
     return static_cast<int>(m) >= 10000
         && static_cast<int>(m) < 11541;
-}
-
-inline bool is_audio (mime_enum m) noexcept
-{
-    return static_cast<int>(m) >= 20000
-        && static_cast<int>(m) < 20158;
-}
-
-inline bool is_text (mime_enum m) noexcept
-{
-    return static_cast<int>(m) >= 80000
-        && static_cast<int>(m) < 80091;
 }
 
 inline bool is_video (mime_enum m) noexcept
@@ -2136,10 +2124,22 @@ inline bool is_video (mime_enum m) noexcept
         && static_cast<int>(m) < 90089;
 }
 
-inline bool is_multipart (mime_enum m) noexcept
+inline bool is_text (mime_enum m) noexcept
 {
-    return static_cast<int>(m) >= 70000
-        && static_cast<int>(m) < 70017;
+    return static_cast<int>(m) >= 80000
+        && static_cast<int>(m) < 80091;
+}
+
+inline bool is_model (mime_enum m) noexcept
+{
+    return static_cast<int>(m) >= 60000
+        && static_cast<int>(m) < 60041;
+}
+
+inline bool is_font (mime_enum m) noexcept
+{
+    return static_cast<int>(m) >= 30000
+        && static_cast<int>(m) < 30006;
 }
 
 } // namespace mime
