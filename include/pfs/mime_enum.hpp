@@ -6,16 +6,17 @@
 // This file is part of `mime-lib`.
 //
 // Changelog:
-//      2023.09.21 Initially generated.
+//      2023.09.22 Initially generated.
 ////////////////////////////////////////////////////////////////////////////////
 #pragma once
+#include <cstdint>
 #include <string>
 
 namespace mime {
 
 // Media Types
 // [Media Types](https://www.iana.org/assignments/media-types/media-types.xhtml)
-enum class mime_enum
+enum class mime_enum: std::int32_t
 {
       unknown = 0
 
@@ -2084,16 +2085,16 @@ enum class mime_enum
 std::string const & to_string (mime_enum m);
 
 
-inline bool is_message (mime_enum m) noexcept
+inline bool is_application (mime_enum m) noexcept
 {
-    return static_cast<int>(m) >= 50000
-        && static_cast<int>(m) < 50022;
+    return static_cast<int>(m) >= 10000
+        && static_cast<int>(m) < 11541;
 }
 
-inline bool is_audio (mime_enum m) noexcept
+inline bool is_font (mime_enum m) noexcept
 {
-    return static_cast<int>(m) >= 20000
-        && static_cast<int>(m) < 20158;
+    return static_cast<int>(m) >= 30000
+        && static_cast<int>(m) < 30006;
 }
 
 inline bool is_text (mime_enum m) noexcept
@@ -2108,16 +2109,16 @@ inline bool is_model (mime_enum m) noexcept
         && static_cast<int>(m) < 60041;
 }
 
-inline bool is_image (mime_enum m) noexcept
+inline bool is_message (mime_enum m) noexcept
 {
-    return static_cast<int>(m) >= 40000
-        && static_cast<int>(m) < 40079;
+    return static_cast<int>(m) >= 50000
+        && static_cast<int>(m) < 50022;
 }
 
-inline bool is_font (mime_enum m) noexcept
+inline bool is_audio (mime_enum m) noexcept
 {
-    return static_cast<int>(m) >= 30000
-        && static_cast<int>(m) < 30006;
+    return static_cast<int>(m) >= 20000
+        && static_cast<int>(m) < 20158;
 }
 
 inline bool is_video (mime_enum m) noexcept
@@ -2126,16 +2127,16 @@ inline bool is_video (mime_enum m) noexcept
         && static_cast<int>(m) < 90089;
 }
 
-inline bool is_application (mime_enum m) noexcept
-{
-    return static_cast<int>(m) >= 10000
-        && static_cast<int>(m) < 11541;
-}
-
 inline bool is_multipart (mime_enum m) noexcept
 {
     return static_cast<int>(m) >= 70000
         && static_cast<int>(m) < 70017;
+}
+
+inline bool is_image (mime_enum m) noexcept
+{
+    return static_cast<int>(m) >= 40000
+        && static_cast<int>(m) < 40079;
 }
 
 } // namespace mime

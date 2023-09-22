@@ -6,7 +6,7 @@
 // This file is part of `mime-lib`.
 //
 // Changelog:
-//      2023.09.21 Initially generated.
+//      2023.09.22 Initially generated.
 ////////////////////////////////////////////////////////////////////////////////
 #include "pfs/mime_enum.hpp"
 #include <unordered_map>

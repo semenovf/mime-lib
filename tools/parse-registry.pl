@@ -103,13 +103,14 @@ print MIME_ENUM_HPP<<"END_OF_PREAMBLE";
 //      ${current_date} Initially generated.
 ////////////////////////////////////////////////////////////////////////////////
 #pragma once
+#include <cstdint>
 #include <string>
 
 namespace mime {
 
 // Media Types
 // [Media Types](https://www.iana.org/assignments/media-types/media-types.xhtml)
-enum class mime_enum
+enum class mime_enum: std::int32_t
 {
       unknown = 0
 END_OF_PREAMBLE
