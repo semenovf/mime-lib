@@ -293,6 +293,19 @@ END_OF_POSTAMBLE
 
 print MIME_ENUM_HPP<<"END_OF_POSTAMBLE";
 
+inline bool is_valid (mime_enum m) noexcept
+{
+    return is_application(m)
+        || is_audio(m)
+        || is_font(m)
+        || is_image(m)
+        || is_message(m)
+        || is_model(m)
+        || is_multipart(m)
+        || is_text(m)
+        || is_video(m);
+}
+
 } // namespace mime
 END_OF_POSTAMBLE
 
