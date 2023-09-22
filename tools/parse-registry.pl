@@ -251,6 +251,9 @@ print MIME_ENUM_HPP<<"END_OF_POSTAMBLE";
     , application__x_dosexec = @{[$indices{'application'}[1]++]}
 
     , audio__wav = @{[$indices{'audio'}[1]++]}
+
+    // Default MIME used as a fallback value
+    , fallback_mime = application__octet_stream
 }; // mime_enum
 
 /**
