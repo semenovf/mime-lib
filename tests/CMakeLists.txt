@@ -15,6 +15,12 @@ if (MIME__ENABLE_COVERAGE)
     set(CMAKE_C_FLAGS "-g -O0 --coverage")
 endif()
 
+if (TARGET pfs::mime)
+    set(_mime_lib pfs::mime)
+elseif(TARGET pfs::mime::static)
+    set(_mime_lib pfs::mime::static)
+endif()
+
 set(TEST_NAMES
     mime_by_extension)
 
@@ -36,7 +42,7 @@ foreach (name ${TEST_NAMES})
         target_link_libraries(${name} PRIVATE -g -O0 --coverage)
     endif()
 
-    target_link_libraries(${name} PRIVATE pfs::mime)
+    target_link_libraries(${name} PRIVATE ${_mime_lib})
     add_test(NAME ${name} COMMAND ${name})
 endforeach()
 

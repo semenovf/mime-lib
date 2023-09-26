@@ -13,6 +13,7 @@ option(MIME__BUILD_STRICT "Build with strict policies: C++ standard required, C+
 option(MIME__BUILD_TESTS "Build tests" OFF)
 option(MIME__BUILD_DEMO "Build examples/demo" OFF)
 option(MIME__ENABLE_COVERAGE "Build tests with coverage support" OFF)
+option(MIME__BUILD_SHARED "Enable build shared library" ON)
 
 if (NOT PORTABLE_TARGET__ENABLED)
     list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/3rdparty/portable-target/cmake/v2)
