@@ -10,6 +10,7 @@
 #include "mime_enum.hpp"
 #include "pfs/error.hpp"
 #include "pfs/filesystem.hpp"
+#include <functional>
 #include <string>
 #include <system_error>
 
@@ -53,3 +54,18 @@ mime_enum mime_by_extension_fallback (pfs::filesystem::path const & path
     , mime_enum fallback = mime_enum::fallback);
 
 } // namespace pfs
+
+namespace std {
+
+template<>
+struct hash<mime::mime_enum>
+{
+    std::size_t operator () (mime::mime_enum const & m) const noexcept
+    {
+        using undertype = std::underlying_type<mime::mime_enum>::type;
+        std::hash<undertype> hasher;
+        return hasher(static_cast<undertype>(m));
+    }
+};
+
+} // namespace std
