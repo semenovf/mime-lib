@@ -8,7 +8,7 @@
 // Changelog:
 //      2023.09.22 Initially generated.
 ////////////////////////////////////////////////////////////////////////////////
-#include "pfs/mime_enum.hpp"
+#include "pfs/mime.hpp"
 #include <unordered_map>
 
 // NOTES
