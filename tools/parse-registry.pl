@@ -264,6 +264,9 @@ std::string const & to_string (mime_enum m);
 END_OF_POSTAMBLE
 
 print MIME_ENUM_CPP<<"END_OF_POSTAMBLE";
+
+    , { mime_enum::application__x_dosexec, mime_data{"application/x-dosexec"} }
+    , { mime_enum::audio__wav, mime_data{"audio/wav"} }
 }; // MIME_DATA
 
 std::string const & to_string (mime_enum m)
