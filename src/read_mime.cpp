@@ -100,7 +100,11 @@ mime_enum read_mime (pfs::filesystem::path const & path, pfs::error * perr)
             break;
         }
 
+#if _MSC_VER
+        auto h = ::_open(fs::utf8_encode(path).c_str(), O_RDONLY);
+#else
         auto h = ::open(fs::utf8_encode(path).c_str(), O_RDONLY);
+#endif
 
         if (h < 0) {
             err = pfs::error {
@@ -112,7 +116,11 @@ mime_enum read_mime (pfs::filesystem::path const & path, pfs::error * perr)
 
         std::vector<char> buffer(__mime_mapping.maxlen(), 0);
 
+#if _MSC_VER
+        auto n = ::_read(h, buffer.data(), static_cast<unsigned int>(buffer.size()));
+#else
         auto n = ::read(h, buffer.data(), buffer.size());
+#endif
 
         if (n < 0) {
             err = pfs::error {

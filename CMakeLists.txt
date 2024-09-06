@@ -16,7 +16,7 @@ option(MIME__ENABLE_COVERAGE "Build tests with coverage support" OFF)
 option(MIME__BUILD_SHARED "Enable build shared library" ON)
 
 if (NOT PORTABLE_TARGET__ENABLED)
-    list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/3rdparty/portable-target/cmake/v2)
+    list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/2ndparty/portable-target/cmake/v2)
     include(PortableTarget)
     portable_target(SET ENABLE_TRACE ON)
 endif()
@@ -28,6 +28,10 @@ if (MIME__BUILD_STRICT)
     set(CXX_STANDARD_REQUIRED ON)
     set(CMAKE_CXX_EXTENSIONS OFF) # use -std=c++XX rather than -std=gnu++XX
 endif()
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/output)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
 portable_target(INCLUDE_PROJECT ${CMAKE_CURRENT_LIST_DIR}/library.cmake)
 

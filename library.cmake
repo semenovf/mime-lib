@@ -18,16 +18,18 @@ endif()
 
 if (MIME__BUILD_SHARED)
     portable_target(ADD_SHARED ${PROJECT_NAME} ALIAS pfs::mime EXPORTS MIME__EXPORTS)
+    list(APPEND _mime__targets ${PROJECT_NAME})
 endif()
 
 if (MIME__BUILD_STATIC)
     set(STATIC_PROJECT_NAME ${PROJECT_NAME}-static)
     portable_target(ADD_STATIC ${STATIC_PROJECT_NAME} ALIAS pfs::mime::static EXPORTS MIME__STATIC)
+    list(APPEND _mime__targets ${STATIC_PROJECT_NAME})
 endif()
 
 if (NOT TARGET pfs::common)
     portable_target(INCLUDE_PROJECT
-        ${PORTABLE_TARGET__CURRENT_PROJECT_DIR}/3rdparty/pfs/common/library.cmake)
+        ${PORTABLE_TARGET__CURRENT_PROJECT_DIR}/2ndparty/common/library.cmake)
 endif()
 
 set(_mime__sources
@@ -35,14 +37,8 @@ set(_mime__sources
     ${CMAKE_CURRENT_LIST_DIR}/src/mime_enum.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/read_mime.cpp)
 
-if (MIME__BUILD_SHARED)
-    portable_target(SOURCES ${PROJECT_NAME} ${_mime__sources})
-    portable_target(INCLUDE_DIRS ${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_LIST_DIR}/include)
-    portable_target(LINK ${PROJECT_NAME} PUBLIC pfs::common)
-endif()
-
-if (MIME__BUILD_STATIC)
-    portable_target(SOURCES ${STATIC_PROJECT_NAME} ${_mime__sources})
-    portable_target(INCLUDE_DIRS ${STATIC_PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_LIST_DIR}/include)
-    portable_target(LINK ${STATIC_PROJECT_NAME} PUBLIC pfs::common)
-endif()
+foreach(_target IN LISTS _mime__targets)
+    portable_target(SOURCES ${_target} ${_mime__sources})
+    portable_target(INCLUDE_DIRS ${_target} PUBLIC ${CMAKE_CURRENT_LIST_DIR}/include)
+    portable_target(LINK ${_target} PUBLIC pfs::common)
+endforeach()
