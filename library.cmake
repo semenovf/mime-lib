@@ -12,12 +12,12 @@ project(mime LANGUAGES C CXX)
 
 option(MIME__BUILD_SHARED "Enable build shared library" OFF)
 
-if (LOREM__BUILD_SHARED)
+if (MIME__BUILD_SHARED)
     add_library(mime SHARED)
-    target_compile_definitions(mime PRIVATE LOREM__EXPORTS)
+    target_compile_definitions(mime PRIVATE MIME__EXPORTS)
 else()
     add_library(mime STATIC)
-    target_compile_definitions(mime PRIVATE LOREM__STATIC)
+    target_compile_definitions(mime PRIVATE MIME__STATIC)
 endif()
 
 add_library(pfs::mime ALIAS mime)
