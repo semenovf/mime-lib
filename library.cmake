@@ -1,44 +1,43 @@
 ################################################################################
-# Copyright (c) 2023 Vladislav Trifochkin
+# Copyright (c) 2023-2024 Vladislav Trifochkin
 #
 # This file is part of `mime-lib`.
 #
 # Changelog:
-#      2023.05.02 Initial version.
+#       2023.05.02 Initial version.
+#       2024.11.23 Removed `portable_target` dependency.
 ################################################################################
-cmake_minimum_required (VERSION 3.11)
+cmake_minimum_required (VERSION 3.19)
 project(mime LANGUAGES C CXX)
 
 option(MIME__BUILD_SHARED "Enable build shared library" OFF)
-option(MIME__BUILD_STATIC "Enable build static library" ON)
 
-if (NOT PORTABLE_TARGET__CURRENT_PROJECT_DIR)
-    set(PORTABLE_TARGET__CURRENT_PROJECT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+if (LOREM__BUILD_SHARED)
+    add_library(mime SHARED)
+    target_compile_definitions(mime PRIVATE LOREM__EXPORTS)
+else()
+    add_library(mime STATIC)
+    target_compile_definitions(mime PRIVATE LOREM__STATIC)
 endif()
 
-if (MIME__BUILD_SHARED)
-    portable_target(ADD_SHARED ${PROJECT_NAME} ALIAS pfs::mime EXPORTS MIME__EXPORTS)
-    list(APPEND _mime__targets ${PROJECT_NAME})
-endif()
-
-if (MIME__BUILD_STATIC)
-    set(STATIC_PROJECT_NAME ${PROJECT_NAME}-static)
-    portable_target(ADD_STATIC ${STATIC_PROJECT_NAME} ALIAS pfs::mime::static EXPORTS MIME__STATIC)
-    list(APPEND _mime__targets ${STATIC_PROJECT_NAME})
-endif()
+add_library(pfs::mime ALIAS mime)
 
 if (NOT TARGET pfs::common)
-    portable_target(INCLUDE_PROJECT
-        ${PORTABLE_TARGET__CURRENT_PROJECT_DIR}/2ndparty/common/library.cmake)
+    set(FETCHCONTENT_UPDATES_DISCONNECTED_COMMON ON)
+
+    include(FetchContent)
+    FetchContent_Declare(common
+        GIT_REPOSITORY https://github.com/semenovf/common-lib.git
+        GIT_TAG master
+        SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/2ndparty/common
+        SUBBUILD_DIR ${CMAKE_CURRENT_BINARY_DIR}/2ndparty/common)
+    FetchContent_MakeAvailable(common)
 endif()
 
-set(_mime__sources
+target_sources(mime PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/src/mime.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/mime_enum.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/read_mime.cpp)
 
-foreach(_target IN LISTS _mime__targets)
-    portable_target(SOURCES ${_target} ${_mime__sources})
-    portable_target(INCLUDE_DIRS ${_target} PUBLIC ${CMAKE_CURRENT_LIST_DIR}/include)
-    portable_target(LINK ${_target} PUBLIC pfs::common)
-endforeach()
+target_include_directories(mime PUBLIC ${CMAKE_CURRENT_LIST_DIR}/include)
+target_link_libraries(mime PUBLIC pfs::common)

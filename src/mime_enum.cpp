@@ -6,9 +6,9 @@
 // This file is part of `mime-lib`.
 //
 // Changelog:
-//      2023.09.22 Initially generated.
+//      2023.10.10 Initially generated.
 ////////////////////////////////////////////////////////////////////////////////
-#include "pfs/mime.hpp"
+#include "pfs/mime_enum.hpp"
 #include <unordered_map>
 
 // NOTES
@@ -2070,6 +2070,9 @@ static std::unordered_map<mime_enum, mime_data> const MIME_DATA = {
     , { mime_enum::video__vnd_vivo, mime_data{"video/vnd.vivo"} }
     , { mime_enum::video__VP8, mime_data{"video/VP8"} }
     , { mime_enum::video__VP9, mime_data{"video/VP9"} }
+
+    , { mime_enum::application__x_dosexec, mime_data{"application/x-dosexec"} }
+    , { mime_enum::audio__wav, mime_data{"audio/wav"} }
 }; // MIME_DATA
 
 std::string const & to_string (mime_enum m)

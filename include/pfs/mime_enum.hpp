@@ -6,7 +6,7 @@
 // This file is part of `mime-lib`.
 //
 // Changelog:
-//      2023.09.22 Initially generated.
+//      2023.10.10 Initially generated.
 ////////////////////////////////////////////////////////////////////////////////
 #pragma once
 #include <cstdint>
@@ -2088,46 +2088,22 @@ enum class mime_enum: std::int32_t
 std::string const & to_string (mime_enum m);
 
 
-inline bool is_text (mime_enum m) noexcept
-{
-    return static_cast<int>(m) >= 80000
-        && static_cast<int>(m) < 80091;
-}
-
 inline bool is_message (mime_enum m) noexcept
 {
     return static_cast<int>(m) >= 50000
         && static_cast<int>(m) < 50022;
 }
 
-inline bool is_image (mime_enum m) noexcept
+inline bool is_text (mime_enum m) noexcept
 {
-    return static_cast<int>(m) >= 40000
-        && static_cast<int>(m) < 40079;
-}
-
-inline bool is_application (mime_enum m) noexcept
-{
-    return static_cast<int>(m) >= 10000
-        && static_cast<int>(m) < 11541;
+    return static_cast<int>(m) >= 80000
+        && static_cast<int>(m) < 80091;
 }
 
 inline bool is_audio (mime_enum m) noexcept
 {
     return static_cast<int>(m) >= 20000
         && static_cast<int>(m) < 20158;
-}
-
-inline bool is_video (mime_enum m) noexcept
-{
-    return static_cast<int>(m) >= 90000
-        && static_cast<int>(m) < 90089;
-}
-
-inline bool is_font (mime_enum m) noexcept
-{
-    return static_cast<int>(m) >= 30000
-        && static_cast<int>(m) < 30006;
 }
 
 inline bool is_model (mime_enum m) noexcept
@@ -2140,6 +2116,30 @@ inline bool is_multipart (mime_enum m) noexcept
 {
     return static_cast<int>(m) >= 70000
         && static_cast<int>(m) < 70017;
+}
+
+inline bool is_application (mime_enum m) noexcept
+{
+    return static_cast<int>(m) >= 10000
+        && static_cast<int>(m) < 11541;
+}
+
+inline bool is_font (mime_enum m) noexcept
+{
+    return static_cast<int>(m) >= 30000
+        && static_cast<int>(m) < 30006;
+}
+
+inline bool is_image (mime_enum m) noexcept
+{
+    return static_cast<int>(m) >= 40000
+        && static_cast<int>(m) < 40079;
+}
+
+inline bool is_video (mime_enum m) noexcept
+{
+    return static_cast<int>(m) >= 90000
+        && static_cast<int>(m) < 90089;
 }
 
 inline bool is_valid (mime_enum m) noexcept
